@@ -1,20 +1,49 @@
 GitHub Profile Analyzer:
 
-A smart web application that analyzes GitHub profiles and provides insights about coding habits, repository activity, developer strengths, and improvement suggestions.
+A smart full-stack web application that analyzes GitHub profiles and generates actionable insights on developer activity, coding patterns, and repository performance.
 
+Live Demo:
+
+ https://sathvikshetty520.github.io/Github-Analyzer/
+
+Overview:
+
+GitHub Profile Analyzer is a full-stack analytics tool that evaluates any public GitHub profile and transforms raw repository data into meaningful insights.
+
+It helps understand a developer’s:
+
+Coding consistency
+Project activity
+Language preferences
+Contribution behavior
+Overall GitHub presence
+
+The system combines GitHub REST API data with custom backend logic to generate structured developer insights and feedback.
 
 Features:
 
+Profile Analytics
 Analyze any public GitHub profile
 Total repositories, stars, and forks
+Followers and following insights
+Repository-level breakdown
+
+Developer Insights
 Most used programming language
-Language usage statistics
-Repository activity analysis
-Inactive repository detection
+Language distribution statistics
 Commit activity analysis
-Developer feedback and suggestions
-Profile overview dashboard
-Frontend + Backend architecture
+Repository activity scoring
+
+Smart Evaluation
+Inactive repository detection
+Developer strength indicators
+Automated improvement suggestions
+Feedback generation system
+
+Dashboard View
+Clean profile overview UI
+Structured statistics display
+Organized insights section
 
 
 Tech Stack:
@@ -22,6 +51,7 @@ Tech Stack:
 Frontend
 React.js
 Axios
+JavaScript (ES6+)
 Backend
 Node.js
 Express.js
@@ -29,48 +59,46 @@ APIs
 GitHub REST API
 
 
-Project Structure:
+Project Architecture:
 
 Github-Analyzer/
 │
-├── server/
+├── client/                 # React Frontend
+│   ├── src/
+│   ├── public/
+│   └── package.json
+│
+├── server/                 # Node.js Backend
 │   ├── routes/
 │   ├── services/
 │   ├── utils/
 │   ├── index.js
 │   └── .env
-│
-├── client/
-│   ├── src/
-│   ├── public/
-│   └── package.json
 
 
-Installation:
+Installation & Setup:
 
 1. Clone Repository
-git clone <your-repository-url>
-2. Install Backend Dependencies
+git clone https://github.com/your-username/Github-Analyzer.git
+cd Github-Analyzer
+2. Setup Backend
 cd server
 npm install
-3. Create .env
 
-Inside server/.env
+Create .env file:
 
 GITHUB_TOKEN=your_github_personal_access_token
-4. Install Frontend Dependencies
-cd ../client
-npm install
-Running the Project
-Start Backend
-cd server
+
+Run backend:
+
 node index.js
 
 Backend runs on:
 
 http://localhost:5000
-Start Frontend
-cd client
+3. Setup Frontend
+cd ../client
+npm install
 npm start
 
 Frontend runs on:
@@ -80,66 +108,45 @@ http://localhost:3000
 
 Usage:
 
-Open the frontend in browser
+Open the web app
 Paste a GitHub profile URL
 Click Analyze
-View profile insights and statistics
-
-Example:
-
+View insights and developer analytics dashboard
+Example Input:
 https://github.com/torvalds
 
+Key Analysis Metrics
+Public repository count
+Total stars & forks
+Language usage breakdown
+Repository activity level
+Inactive repositories detection
+Commit activity insights
 
-Current Analysis Features:
-
-Public repositories
-Total stars
-Total forks
-Most used language
-Language distribution
-Inactive repositories
-Commit activity
 Developer feedback generation
-
-
-Planned Features:
-
+Planned Enhancements
 Weekly activity graphs
-Commit consistency score
+AI-based developer scoring
 README quality analysis
-Framework detection from package.json
-Open-source recommendations
-AI-generated career suggestions
-Portfolio improvement suggestions
 Recruiter readiness score
-Charts and visual analytics
+Dark mode UI
+Export report as PDF
+GitHub OAuth login
+Interactive charts dashboard
+GitHub API
 
+This project uses the official GitHub REST API:
+https://docs.github.com/en/rest
 
-GitHub API:
-
-This project uses:
-GitHub REST API
-Official documentation:
-
-GitHub REST API Documentation
-
-Screenshots
-
-Add screenshots of:
-
-Homepage
-Analysis dashboard
-Charts
-Feedback section
-Future Improvements
-Tailwind CSS UI redesign
-Authentication with GitHub OAuth
-Dark mode
-Profile comparison
-Export analysis as PDF
-AI-powered insights
+Key Highlights:
+Full-stack MERN-style architecture (React + Node)
+Real-time GitHub data processing
+Modular backend design (routes/services/utils)
+Clean separation of frontend and backend
+Production deployment (GitHub Pages + Render)
 
 
 Author:
 
-Built by Sathvik.
+Sathvik Shetty
+Full-Stack Developer
