@@ -5,18 +5,26 @@ const cors = require("cors");
 
 const app = express();
 
-const analyzeRoute =
- require("./routes/analyze");
+const analyzeRoute = require("./routes/analyze");
 
-app.use(cors());
+// ✅ Middleware
+app.use(cors({
+    origin: "*"
+}));
+
 app.use(express.json());
 
+// ✅ API route
 app.use("/analyze", analyzeRoute);
 
+// ✅ Health check route
 app.get("/", (req, res) => {
-    res.send("GitHub Analyzer API");
+    res.send("GitHub Analyzer API is running");
 });
 
-app.listen(5000, () => {
-    console.log("Server running on port 5000");
+// ✅ IMPORTANT: Render port fix
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });

@@ -3,90 +3,61 @@ import axios from "axios";
 
 function App() {
 
-  const [profileUrl, setProfileUrl] =
-    useState("");
-
-  const [data, setData] =
-    useState(null);
-
-  const [loading, setLoading] =
-    useState(false);
-
-  const [error, setError] =
-    useState("");
+  const [profileUrl, setProfileUrl] = useState("");
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   async function analyzeProfile() {
 
     try {
-
       setLoading(true);
       setError("");
       setData(null);
 
-      const username =
-        profileUrl
-          .split("github.com/")[1]
-          ?.replace("/", "");
+      const username = profileUrl
+        .split("github.com/")[1]
+        ?.replace("/", "");
 
       if (!username) {
-
-        setError(
-          "Please enter a valid GitHub profile URL"
-        );
-
+        setError("Please enter a valid GitHub profile URL");
         return;
       }
 
-      const response =
-        await axios.post(
-          "http://localhost:5000/analyze",
-          { username }
-        );
+      // ✅ FIXED: backend URL replaced
+      const response = await axios.post(
+        "https://github-analyzer-backend-d2jf.onrender.com/analyze",
+        { username }
+      );
 
       setData(response.data);
 
     } catch (error) {
-
       console.log(error);
-
-      setError(
-        "Failed to analyze profile"
-      );
+      setError("Failed to analyze profile");
 
     } finally {
-
       setLoading(false);
     }
   }
 
   return (
+    <div style={{
+      minHeight: "100vh",
+      background: "#f5f5f5",
+      padding: "40px",
+      fontFamily: "Arial"
+    }}>
 
-    <div
-      style={{
-        minHeight: "100vh",
-        background: "#f5f5f5",
-        padding: "40px",
-        fontFamily: "Arial"
-      }}
-    >
+      <h1>GitHub Profile Analyzer</h1>
 
-      <h1>
-        GitHub Profile Analyzer
-      </h1>
-
-      <div
-        style={{
-          marginTop: "20px"
-        }}
-      >
+      <div style={{ marginTop: "20px" }}>
 
         <input
           type="text"
           placeholder="Paste GitHub Profile URL"
           value={profileUrl}
-          onChange={(e) =>
-            setProfileUrl(e.target.value)
-          }
+          onChange={(e) => setProfileUrl(e.target.value)}
           style={{
             width: "400px",
             padding: "12px",
@@ -110,45 +81,26 @@ function App() {
 
       </div>
 
-      {loading && (
-        <p style={{ marginTop: "20px" }}>
-          Analyzing profile...
-        </p>
-      )}
-
-      {error && (
-        <p style={{ marginTop: "20px" }}>
-          {error}
-        </p>
-      )}
+      {loading && <p>Analyzing profile...</p>}
+      {error && <p>{error}</p>}
 
       {data && (
-
-        <div
-          style={{
-            marginTop: "40px",
-            background: "white",
-            padding: "30px",
-            borderRadius: "12px"
-          }}
-        >
+        <div style={{
+          marginTop: "40px",
+          background: "white",
+          padding: "30px",
+          borderRadius: "12px"
+        }}>
 
           <img
             src={data.user.avatar}
-            alt=""
             width="120"
-            style={{
-              borderRadius: "50%"
-            }}
+            style={{ borderRadius: "50%" }}
+            alt=""
           />
 
-          <h2>
-            {data.user.login}
-          </h2>
-
-          <p>
-            {data.user.bio}
-          </p>
+          <h2>{data.user.login}</h2>
+          <p>{data.user.bio}</p>
 
           <a
             href={data.user.profileUrl}
@@ -162,80 +114,31 @@ function App() {
 
           <h3>Profile Stats</h3>
 
-          <p>
-            Public Repositories:
-            {" "}
-            {data.user.publicRepos}
-          </p>
+          <p>Public Repositories: {data.user.publicRepos}</p>
+          <p>Followers: {data.user.followers}</p>
+          <p>Following: {data.user.following}</p>
 
-          <p>
-            Followers:
-            {" "}
-            {data.user.followers}
-          </p>
-
-          <p>
-            Following:
-            {" "}
-            {data.user.following}
-          </p>
-
-          <p>
-            Total Stars:
-            {" "}
-            {data.stats.totalStars}
-          </p>
-
-          <p>
-            Total Forks:
-            {" "}
-            {data.stats.totalForks}
-          </p>
-
-          <p>
-            Most Used Language:
-            {" "}
-            {data.stats.mostUsedLanguage}
-          </p>
-
-          <p>
-            Inactive Repositories:
-            {" "}
-            {data.stats.inactiveRepos}
-          </p>
+          <p>Total Stars: {data.stats.totalStars}</p>
+          <p>Total Forks: {data.stats.totalForks}</p>
+          <p>Most Used Language: {data.stats.mostUsedLanguage}</p>
+          <p>Inactive Repositories: {data.stats.inactiveRepos}</p>
 
           <hr />
 
           <h3>Languages</h3>
-
           <ul>
-
-            {Object.entries(
-              data.stats.languages
-            ).map(([lang, count]) => (
-
-              <li key={lang}>
-                {lang}: {count}
-              </li>
+            {Object.entries(data.stats.languages).map(([lang, count]) => (
+              <li key={lang}>{lang}: {count}</li>
             ))}
-
           </ul>
 
           <hr />
 
           <h3>Feedback</h3>
-
           <ul>
-
-            {data.feedback.map(
-              (item, index) => (
-
-                <li key={index}>
-                  {item}
-                </li>
-              )
-            )}
-
+            {data.feedback.map((item, index) => (
+              <li key={index}>{item}</li>
+            ))}
           </ul>
 
         </div>
